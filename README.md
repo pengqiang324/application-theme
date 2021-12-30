@@ -26,7 +26,8 @@ new Vue({
   render: h => h(App)
 });
 ```
-
+#### 使用 Element-UI 版本
+element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版本
 
 ### 定制样式组件结构
 ```javascript
