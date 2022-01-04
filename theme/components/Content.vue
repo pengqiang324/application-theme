@@ -47,7 +47,7 @@ export default {
 .content-table-box {
     position: relative;
     &.content-table-loading {
-        opacity: .5;
+        opacity: .3;
     }
 }
 .content-box-min-height {
@@ -66,6 +66,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+    max-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
