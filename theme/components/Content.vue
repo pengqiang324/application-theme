@@ -4,6 +4,7 @@
     :span="24"
     :style="{'min-height': startMinHeight ? minHeight : ''}" 
     :class="['content-box', {'content-box-min-height': startMinHeight}]">
+        <slot name="tabs"></slot>
         <slot name="tool"></slot>
         <div :class="['content-table-box', { 'content-table-loading': loading }]">
             <slot></slot>

@@ -15,6 +15,10 @@
                     </el-dropdown-menu>
                 </el-dropdown>
             </el-tooltip>
+            <el-tooltip v-if="showInfo" effect="dark" placement="top">
+                <i class="el-icon-question"></i>
+                <slot name="info" slot="content"></slot>
+            </el-tooltip>
         </div>
     </div>
 </div>
@@ -25,6 +29,13 @@ export default {
     name: 'TableTool',
 
     inject: ["reload"],
+
+    props: {
+        showInfo: {
+            type: Boolean,
+            default: false
+        }
+    },
 
     methods: {
         refreshData() {
@@ -51,7 +62,8 @@ export default {
         justify-content: flex-end;
         flex: 1;
         .el-icon-refresh-right,
-        .el-dropdown {
+        .el-dropdown,
+        .el-icon-question {
             margin-left: 16px;
             font-size: 20px;
             cursor: pointer;
