@@ -194,7 +194,7 @@ $padding-24: 24px;
 }
 .dialog-width-500 {
     .el-dialog {
-        width: $dialog-width-500;
+        width: $dialog-width-500 !important;
     }
 }
 .dialog-width-800 {
