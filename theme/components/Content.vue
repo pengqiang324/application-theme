@@ -8,9 +8,9 @@
         <slot name="tool"></slot>
         <div :class="['content-table-box', { 'content-table-loading': loading }]">
             <slot></slot>
-            <div v-if="loading" class="spin-box">
-                <Spin />
-            </div>
+        </div>
+        <div v-if="loading" class="spin-box">
+            <Spin />
         </div>
     </el-col>
 </el-row>
@@ -41,7 +41,9 @@ export default {
 </script>
 
 <style lang='scss'>
+$base-tool-height: 26px;
 .content-box {
+    position: relative;
     padding: 24px;
     background: #fff;
 }
@@ -63,10 +65,10 @@ export default {
 }
 .spin-box {
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 50px);
     max-height: 400px;
     display: flex;
     align-items: center;

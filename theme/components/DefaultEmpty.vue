@@ -17,7 +17,7 @@ export default {
 
 <style lang='scss' scoped>
 .empty {
-    margin: 32px 0;
+    margin: 48px 0;
     font-size: 14px;
     line-height: 22px;
     text-align: center;
