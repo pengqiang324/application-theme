@@ -6,11 +6,14 @@
     :class="['content-box', {'content-box-min-height': startMinHeight}]">
         <slot name="tabs"></slot>
         <slot name="tool"></slot>
-        <div :class="['content-table-box', { 'content-table-loading': loading }]">
-            <slot></slot>
-        </div>
-        <div v-if="loading" class="spin-box">
-            <Spin />
+        <slot name="selection"></slot>
+        <div class="content-table-box">
+            <div :class="{'content-table-list': loading}">
+                <slot></slot>
+            </div>
+            <div v-if="loading" class="spin-box">
+                <Spin />
+            </div>
         </div>
     </el-col>
 </el-row>
@@ -41,15 +44,13 @@ export default {
 </script>
 
 <style lang='scss'>
-$base-tool-height: 26px;
 .content-box {
-    position: relative;
     padding: 24px;
     background: #fff;
 }
 .content-table-box {
     position: relative;
-    &.content-table-loading {
+    .content-table-list {
         opacity: .3;
     }
 }
@@ -65,10 +66,10 @@ $base-tool-height: 26px;
 }
 .spin-box {
     position: absolute;
-    top: 50px;
+    top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 50px);
+    height: 100%;
     max-height: 400px;
     display: flex;
     align-items: center;
