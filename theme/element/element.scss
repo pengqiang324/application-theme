@@ -85,9 +85,6 @@ $padding-24: 24px;
     thead {
         color: rgba(0, 0, 0, 0.85);
     }
-    .el-table__cell {
-        line-height: $default-line-height-base;
-    }
     .cell {
         padding: 0 $padding-base;
         line-height: $default-line-height-base;
