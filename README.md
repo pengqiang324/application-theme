@@ -275,6 +275,7 @@ export default {
 | ------------ | ------------ |
 | 1 | 建议统一将表格栏宽度设置 200px |
 
+**参考代码**
 ```javascript
 <el-table-column
 label="问题类型"
