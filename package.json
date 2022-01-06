@@ -1,6 +1,6 @@
 {
   "name": "application-theme",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "author": "pengqiang",
   "private": false,
   "main": "lib/theme.umd.js",

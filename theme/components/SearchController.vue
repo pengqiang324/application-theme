@@ -20,6 +20,13 @@
 export default {
     name: 'SearchController',
 
+    props: {
+        index: {
+            type: Number,
+            default: 0
+        }
+    },
+
     data() {
         return {
             spanCol: 8,
@@ -30,19 +37,22 @@ export default {
     },
 
     mounted() {
-        const oBox = document.querySelectorAll('.search-box')[0]
-        const oCol = oBox.querySelectorAll('.el-col')
-        this.parentDOM = oBox.querySelector('.el-row')
-        this.inputList = oCol
-        if (oCol.length >= 4) {
-            this.isOpen = true
-            this.setDisplay(oCol)
-        } else {
-            this.isOpen = false
-        }
+        this.computeCol()
     },
 
     methods: {
+        computeCol() {
+            const oBox = document.querySelectorAll('.search-box')[this.index]
+            const oCol = oBox.querySelectorAll('.el-col')
+            this.parentDOM = oBox.querySelector('.el-row')
+            this.inputList = oCol
+            if (oCol.length >= 4) {
+                this.isOpen = true
+                this.setDisplay(oCol)
+            } else {
+                this.isOpen = false
+            }
+        },
         handleOpen() {
             if (this.needOpenStatus) {
                 this.needOpenStatus = false

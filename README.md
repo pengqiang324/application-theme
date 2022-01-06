@@ -1,6 +1,5 @@
-## 样式优化文档
-
-### 开发指南
+## 轻量级管理系统业务UI组件
+### 一、开发指南
 #### 安装
 推荐使用 npm 的方式安装，它能更好地和 webpack 打包工具配合使用。
 
@@ -26,12 +25,10 @@ new Vue({
   render: h => h(App)
 });
 ```
-
 #### 使用 Element-UI 版本
 element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版本
 
-
-### 定制样式组件结构-(Application-theme依赖）
+### 二、业务布局组件结构-(Application-theme依赖）
 ```javascript
 — theme                          主题样式定制文件夹
  — components                    单独定制组件
@@ -45,6 +42,7 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
    _ SearchController.vue        搜索展开控制器组件
    — Selection.vue               多选框表格 alert 组件
    — TableTool.vue               表格操作工具组件
+   — ToolTip.vue                 表格内容超出文字提示组件
  — element
    — fonts                       element icon
    — element.scss                全局定制样式
@@ -52,7 +50,7 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
  — index.css                     样式主入口
 ```
 
-### 布局组件样式迁移方法
+### 三、业务布局组件
 #### 注意事项
 
 | 序号   | 注意事项  |
@@ -63,8 +61,8 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
 | 4 | &lt;el-pagination&gt; 组件 layout 属性 设置 "total, prev, pager, next" 四个值。page-sizes 属性 统一设置 [10,20,30,40] 值 |
 
 
-#### 搜索盒模型组件样式迁移
-| 序号   | 迁移方案  |
+#### 搜索盒模型组件
+| 序号   | 使用说明  |
 | ------------ | ------------ |
 | 1 | 将原 &lt;el-form&gt; 在内的标签 dom 元素包括在 &lt;Search&gt; 组件中  |
 | 2 | 在原先 &lt;el-form&gt; 子标签中添加 &lt;el-row&gt; 作为唯一子节点 |
@@ -75,76 +73,107 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
 ```javascript
 <Search>
 	<el-form>
-		<el-col :span="8">
-          <el-form-item label="手机号码:">
-            <el-input
-              placeholder="请输入手机号码"
-              v-model="mobile"
-              clearable
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="手环id:">
-            <el-input
-              placeholder="请输入手环id"
-              v-model="braceletId"
-              clearable
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="设备识别号:">
-            <el-input
-              placeholder="请输入设备识别号"
-              v-model="deviceCode"
-              clearable
-            ></el-input>
-          </el-form-item>
-        </el-col>
-        <SearchController>
-            <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="reset">重置</el-button>
-        </SearchController>
+		<el-row>
+			<el-col :span="8">
+			  <el-form-item label="手机号码:">
+				<el-input
+				  placeholder="请输入手机号码"
+				  v-model="mobile"
+				  clearable
+				></el-input>
+			  </el-form-item>
+			</el-col>
+			<el-col :span="8">
+			  <el-form-item label="手环id:">
+				<el-input
+				  placeholder="请输入手环id"
+				  v-model="braceletId"
+				  clearable
+				></el-input>
+			  </el-form-item>
+			</el-col>
+			<el-col :span="8">
+			  <el-form-item label="设备识别号:">
+				<el-input
+				  placeholder="请输入设备识别号"
+				  v-model="deviceCode"
+				  clearable
+				></el-input>
+			  </el-form-item>
+			</el-col>
+			<SearchController>
+				<el-button type="primary" @click="search">查询</el-button>
+				<el-button type="primary" @click="reset">重置</el-button>
+			</SearchController>
+		</el-row>
 	</el-form>
 </Search>
 ```
 
 
-#### 表格列表组件样式迁移
+#### 表格列表组件
 
-| 序号   | 迁移方案  |
+| 序号   | 使用说明  |
 | ------------ | ------------ |
 | 1 | 将原先 &lt;el-tabel&gt; 标签所在的所有元素包裹在 &lt;Content&gt; 组件中  |
 | 2 | &lt;Content&gt; 组件添加 start-min-height 属性既可开启最小高度模式 |
-| 3  | 将需要操作表格外的按钮标签 &lt;el-button&gt; 包裹在 &lt;Tabel-Tool&gt; 组件中，例如：新增某表格选项  |
-| 4 | 在 &lt;/el-tabel&gt; 闭合标签前新增 &lt;DefaultEmpty slot="empty"/&gt; 默认空状态组件 |
-| 5 | 在 &lt;el-tabel&gt; 相邻兄弟元素中添加 &lt;Pagination&gt; 组件并且将 &lt;el-pagination&gt; 组件包裹其中 |
-| 6 | 在 &lt;el-pagination slot-scope="data" :page-sizes="data.sizes" :layout="data.layout"&gt; 中添加以上三个属性值 |
+| 3 | 如需要在表格中添加 loading 交互，需在 &lt;Content :loading="loading"&gt;属性，并且在计算属性中引入全局 loading   store状态|
+| 4 | 将需要操作表格外的按钮标签 &lt;el-button&gt; 包裹在 &lt;Tabel-Tool&gt; 组件中，例如：新增某表格选项  |
+| 5 | 在 &lt;/el-tabel&gt; 闭合标签前新增 &lt;DefaultEmpty slot="empty"/&gt; 默认空状态组件 |
+| 6 | 在 &lt;el-tabel&gt; 相邻兄弟元素中添加 &lt;Pagination&gt; 组件并且将 &lt;el-pagination&gt; 组件包裹其中 |
+| 7 | 在 &lt;el-pagination slot-scope="data" :page-sizes="data.sizes" :layout="data.layout"&gt; 中添加以上三个属性值 |
 
 **参考代码**
 ```javascript
-<Content>
+<template>
+...
+<Content :loading="loading">
 	<TableTool @refresh="刷新表格数据方法"></TableTool>
 	<el-table :data="tableData" v-loading="loading">
 		<el-table-column prop="mobile" label="手机号"></el-table-column>
 		<el-table-column prop="nickName" label="昵称"></el-table-column>
-         <DefaultEmpty slot="empty"/>
+        <DefaultEmpty slot="empty"/>
 	</el-table>
 	<Pagination>
           <el-pagination
             slot-scope="data"
             :page-sizes="data.sizes"
             :layout="data.layout"
+			hide-on-single-page
             @size-change="分页条数切换方法"
           ></el-pagination>
 	</Pagination>
 </Content>
+...
+</template>
+
+<script>
+export default {
+	...,
+	data() {
+		return {
+			loading: false
+		}
+	},
+	
+	methods: {
+		getData() {
+			this.loading = true
+			try {
+				 ...await 表格数据获取逻辑
+			} finally {
+				this.loading = false
+			}
+		}
+	}
+	...
+}
+</script>
 ```
 
-#### Model态框表单组件样式迁移
+#### Model态框表单组件
 
-| 序号   | 迁移方案  |
+| 序号   | 使用说明  |
 | ------------ | ------------ |
 | 1 | 在迁移组件样式时 将原来 &lt;el-form-item&gt; 改成 &lt;Form-Item&gt; 即可  |
 | 2 | 注意：需要在 &lt;el-form&gt; 添加属性 label-width 值为 '140px', 统一label项宽度样式 |
@@ -169,9 +198,9 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
 </el-form>
 ```
 
-#### 基本设置模型迁移
+#### 基本设置模型
 
-| 序号   | 迁移方案  |
+| 序号   | 使用说明  |
 | ------------ | ------------ |
 | 1 | 在 &lt;BaseSetting&gt; 标签添加对应设置标题属性 title  |
 | 2 | 在原来 &lt;el-form&gt; 表单基础上添加属性 label-position 值为 'top'，并且包裹在 &lt;BaseSetting&gt; 组件中 |
@@ -198,9 +227,9 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
 </BaseSetting>
 ```
 
-#### 搜索展开控制器组件迁移
+#### 搜索展开控制器组件
 
-| 序号   | 迁移方案  |
+| 序号   | 使用说明  |
 | ------------ | ------------ |
 | 1 | 将搜索相关按钮元素包裹在 &lt;SearchController&gt; 组件插槽中  |
 
@@ -212,9 +241,9 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
 </SearchController>
 ```
 
-#### 表格多选框 alert 提示迁移
+#### 表格多选框 alert 提示组件
 
-| 序号   | 迁移方案  |
+| 序号   | 使用说明  |
 | ------------ | ------------ |
 | 1 | 将 &lt;el-table&gt; 表格组件包裹在 &lt;Selection :number="number" @clearEmpty="clearEmpty"&gt; 中  |
 | 2 | 并且包含属性 number 代表表格数据 length |
@@ -225,9 +254,9 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
 <Selection :number="multipleSelection.length" @clearEmpty="清空多选项方法" />
 ```
 
-#### 表格操作项按钮间 Divider 分隔线组件迁移
+#### 表格操作项按钮间 Divider 分隔线组件
 
-| 序号   | 迁移方案  |
+| 序号   | 使用说明  |
 | ------------ | ------------ |
 | 1 | 迁移过程中将所有操作选项 &lt;el-button&gt; 组件包裹在 &lt;Divider&gt; 组件中 |
 
@@ -239,5 +268,20 @@ element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版�
 	<el-button @click="edit">编辑</el-button> 
 	<el-button @clcik="del">删除</el-button>
 </Divider>
+```
+
+#### 表格内容超出 tooltip 文字提示组件
+| 序号   | 使用说明  |
+| ------------ | ------------ |
+| 1 | 建议统一将表格栏宽度设置 200px |
+
+```javascript
+<el-table-column
+label="问题类型"
+width="200px">
+	<template slot-scope="scope">
+		<ToolTip :content="scope.row.typeName"/>
+	</template>
+</el-table-column>
 ```
 
