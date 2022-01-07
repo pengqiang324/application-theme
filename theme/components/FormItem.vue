@@ -1,6 +1,6 @@
-<template>
+<template functional>
 <el-row>
-    <el-form-item :label="label" :prop="prop">
+    <el-form-item :label="props.label" :prop="props.prop">
         <el-col :span="23" class="form-margin">
             <slot></slot>
         </el-col>
