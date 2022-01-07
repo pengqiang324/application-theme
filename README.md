@@ -28,18 +28,20 @@ new Vue({
 #### 使用 Element-UI 版本
 element-ui 版本需要安装 V2.15.0 版本以上， 建议安装 V2.15.6 版本
 
-### 二、业务布局组件结构-(Application-theme依赖）
+### 二、业务布局组件结构
 ```javascript
 — theme                          主题样式定制文件夹
  — components                    单独定制组件
-   _ BaseSetting.vue             基本设置页面模型
+   — 404.vue                     404页面组件
+   — BaseSetting.vue             基本设置页面模型
    — Content.vue                 内容盒模型
    — DefaultEmpty.vue            默认表格空状态组件
    — Divider.vue                 表格操作按钮分隔组件
    — FormItem.vue                Model 态框表单结构
+   — NoFound.vue                 未找到结果组件
    — Pagination.vue              分页组件
    — Search.vue                  搜索单盒模型组件
-   _ SearchController.vue        搜索展开控制器组件
+   — SearchController.vue        搜索展开控制器组件
    — Selection.vue               多选框表格 alert 组件
    — TableTool.vue               表格操作工具组件
    — ToolTip.vue                 表格内容超出文字提示组件
@@ -284,5 +286,12 @@ width="200px">
 		<ToolTip :content="scope.row.typeName"/>
 	</template>
 </el-table-column>
+```
+
+#### 404 组件
+
+**参考代码**
+```javascript
+<NoFind/>
 ```
 

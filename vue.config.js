@@ -24,7 +24,7 @@ module.exports = {
         config.resolve.alias
             .set('@', resolve('examples'))
             .set('~', resolve('packages'))
-
+            
         // 排除文件夹 eslint
         config.module
             .rule('eslint')
