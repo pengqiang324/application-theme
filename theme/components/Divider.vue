@@ -27,16 +27,18 @@ export default {
                                 }
                             })
                             .map(item=> {
+                                const { listeners, children, propsData } = item.componentOptions
                                 return {
-                                    event: item.componentOptions.listeners,
-                                    text: item.componentOptions.children[0].text
+                                    event: listeners,
+                                    text: children[0].text,
+                                    propsData
                                 }
                             })
         // 创建默认操作选项
         const createDefaultVDOM = function (dom, index) {
             return (
                 [
-                    h('span', { class: 'table-button', on: { ...dom.event } }, dom.text),
+                    h('el-button', { class: 'table-button', on: { ...dom.event }, attrs: { ...dom.propsData } }, dom.text),
                     h('i', { class: (index === Children.length - 1) ? '' : 'table-divider' }, '')
                 ]
             )
@@ -59,7 +61,7 @@ export default {
         }
         let renderDOM = null
         // 数量超过 2 的操作选项
-        if (Children.length <= 2) {
+        if (Children.length <= 3) {
             renderDOM = Children.map((dom, index) => {
                 return createDefaultVDOM(dom, index)
             })

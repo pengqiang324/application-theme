@@ -33,7 +33,7 @@ export default {
   .wscn-noFind-title {
     font-size: 30px;
     text-align: center;
-    padding: 30px 0 0px;
+    padding: 30px 0 10px;
   }
   .wscn-noFind-text {
     font-size: 18px;
