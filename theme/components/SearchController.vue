@@ -32,7 +32,8 @@ export default {
             spanCol: 8,
             toolText: '展开',
             isOpen: false,
-            needOpenStatus: false
+            needOpenStatus: false,
+            key: Math.random() * 1000
         }
     },
 

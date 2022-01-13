@@ -1,12 +1,27 @@
-<template functional>
-  <div class="search-box">
+<template>
+  <div ref="searchBox"  v-if="show" class="search-box">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Search"
+  name: "Search",
+
+
+  data() {
+    return {
+      show: true
+    }
+  },
+
+  activated() {
+    this.show = true
+  },
+  
+  deactivated() {
+    this.show = false
+  }
 };
 </script>
 
