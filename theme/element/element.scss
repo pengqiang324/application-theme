@@ -250,3 +250,25 @@ $padding-24: 24px;
     }
 }
 /* Tabs */
+
+/* Popconfirm */
+.el-popover {
+    min-width: 160px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 15%);
+    .el-button--mini {
+        padding: 4px 4px 4px 7px;
+        border-radius: 2px;
+        font-size: 14px;
+        letter-spacing: 3px;
+    }
+    .el-popconfirm__icon {
+        margin-right: $margin-padding-distance;
+    }
+}
+.el-popconfirm__main {
+    padding: 4px 0 16px;
+}
+/* Popconfirm */

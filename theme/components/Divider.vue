@@ -5,40 +5,77 @@ function DividerCommand(childVNode) {
         const filterVNode = childVNode.filter(VNode => VNode.text === command)
         if (filterVNode.length) {
             const event = filterVNode[0].event
-            if (event.click) {
+            if (command !== '删除' && event.click) {
                 event.click() // 执行对应操作业务
             }
         }
     }
 }
+
+function handleDelOption(h, dom, props, isMore=false) {
+    let children = [
+        h(
+            isMore ? 'span' : 'el-button', 
+            { class: { 'table-button': !isMore }, on: isMore ? {} : { ...dom.event }, props: { ...dom.propsData } }, 
+            dom.text
+        )
+    ]
+    if (dom.text === '删除') {
+        children = [
+            h(
+                'el-popconfirm',
+                {
+                    props: { title: props.delTitle || '确认删除?', cancelButtonType: '', icon: 'el-icon-warning', iconColor: '#faad14' },
+                    attrs: { placement: 'top' },
+                    on: {
+                        confirm: dom.event.click
+                    }
+                },
+                [
+                    h(
+                        isMore ? 'span' : 'el-button',
+                        {
+                            props: { ...dom.propsData },
+                            slot: 'reference'
+                        },
+                        dom.text
+                    )
+                ]
+            )
+        ]
+    }
+    return children
+}
 export default {
     name: 'Divider',
     functional: true,
     render(h, context) {
+        const Props = context.props
         const Children = context.children
-                            .filter(item => {
-                                if (item.componentOptions) { // 按钮使用 v-if 指令判断
-                                    const Directives = item.data.directives
-                                    if (Directives) {
-                                        const haveShowDirectives = Directives.filter((directives) => directives.name === 'show') // // 按钮使用 v-show 指令判断
-                                        if (haveShowDirectives.length) return haveShowDirectives[0].value
-                                    }
-                                    return true
+                        .filter(item => {
+                            if (item.componentOptions) { // 按钮使用 v-if 指令判断
+                                const Directives = item.data.directives
+                                if (Directives) {
+                                    const haveShowDirectives = Directives.filter((directives) => directives.name === 'show') // // 按钮使用 v-show 指令判断
+                                    if (haveShowDirectives.length) return haveShowDirectives[0].value
                                 }
-                            })
-                            .map(item=> {
-                                const { listeners, children, propsData } = item.componentOptions
-                                return {
-                                    event: listeners,
-                                    text: children[0].text,
-                                    propsData
-                                }
-                            })
+                                return true
+                            }
+                        })
+                        .map(item=> {
+                            const { listeners, children, propsData } = item.componentOptions
+                            return {
+                                event: listeners,
+                                text: children[0].text,
+                                propsData
+                            }
+                        })
         // 创建默认操作选项
         const createDefaultVDOM = function (dom, index) {
+            const children = handleDelOption(h, dom, Props)
             return (
                 [
-                    h('el-button', { class: 'table-button', on: { ...dom.event }, attrs: { ...dom.propsData } }, dom.text),
+                    children,
                     h('i', { class: (index === Children.length - 1) ? '' : 'table-divider' }, '')
                 ]
             )
@@ -53,7 +90,8 @@ export default {
                             h('i', { class: 'el-icon-arrow-down' })
                         ]),
                         h('el-dropdown-menu', { slot: 'dropdown' }, haveMoreChildren.map(children => {
-                            return h('el-dropdown-item', { props: { command: children.text } }, children.text)
+                            const Children = handleDelOption(h, children, Props, true)
+                            return h('el-dropdown-item', { props: { command: children.text } }, Children)
                         }))
                     ])
                 ]
