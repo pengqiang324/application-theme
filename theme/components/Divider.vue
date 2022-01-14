@@ -26,7 +26,7 @@ function handleDelOption(h, dom, props, isMore=false) {
                 'el-popconfirm',
                 {
                     props: { title: props.delTitle || '确认删除?', cancelButtonType: '', icon: 'el-icon-warning', iconColor: '#faad14' },
-                    attrs: { placement: 'top' },
+                    attrs: { placement: 'top-end' },
                     on: {
                         confirm: dom.event.click
                     }
