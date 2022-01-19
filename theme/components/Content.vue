@@ -8,10 +8,10 @@
         <slot name="tool"></slot>
         <slot name="selection"></slot>
         <div class="content-table-box">
-            <div :class="{'content-table-list': loading}">
+            <div :class="{'content-table-list': lazyLoading}">
                 <slot></slot>
             </div>
-            <div v-if="loading" class="spin-box">
+            <div v-if="lazyLoading" class="spin-box">
                 <Spin />
             </div>
         </div>
@@ -38,6 +38,20 @@ export default {
         loading: {
             type: Boolean,
             default: false
+        }
+    },
+
+    data() {
+        return {
+            lazyLoading: false
+        }
+    },
+
+    watch: {
+        loading(val) {
+            setTimeout(() => {
+                this.lazyLoading = val
+            }, 220)
         }
     }
 }
