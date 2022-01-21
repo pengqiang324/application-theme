@@ -53,6 +53,10 @@ export default {
     .content-table-list {
         opacity: .3;
     }
+    .el-table__header,
+    .el-table__body {
+        width: 100% !important;
+    }
 }
 .content-box-min-height {
     .el-dialog__wrapper{

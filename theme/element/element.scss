@@ -86,11 +86,14 @@ $padding-24: 24px;
         color: rgba(0, 0, 0, 0.85);
     }
     .cell {
-        padding: 0 $padding-base;
+        padding: 0 !important;
         line-height: $default-line-height-base;
     }
     th.el-table__cell {
         font-weight: 500 !important;
+    }
+    .el-table__cell {
+        padding: 12px 12px;
     }
 }
 
