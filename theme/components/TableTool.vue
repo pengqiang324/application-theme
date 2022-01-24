@@ -23,24 +23,23 @@
                 <el-popover
                 placement="bottom-end"
                 trigger="click"
-                width="180"
                 popper-class="setting-popover">
-                <i class="el-icon-setting" slot="reference"></i>
-                <div class="setting-checkbox-list">
-                    <div class="setting-checkbox-top">
-                        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">列展示</el-checkbox>
-                        <el-button type="text" @click="handleReset">重置</el-button>
-                    </div>
-                    <el-checkbox-group v-model="checkList" @change="handleCheckedChange">
-                        <div class="setting-checkbox-group">
-                            <div v-for="item in tableHeadList" :key="item" class="setting-checkbox-option">
-                                <i class="el-icon-menu setting-checkbox-icon" style=""></i>
-                                <el-checkbox :label="item">{{ item }}</el-checkbox>
-                            </div>
+                    <i class="el-icon-setting" slot="reference"></i>
+                    <div class="setting-checkbox-list">
+                        <div class="setting-checkbox-top">
+                            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">列展示</el-checkbox>
+                            <el-button type="text" @click="handleReset">重置</el-button>
                         </div>
-                    </el-checkbox-group>
-                </div>
-            </el-popover>
+                        <el-checkbox-group v-model="checkList" @change="handleCheckedChange">
+                            <div class="setting-checkbox-group">
+                                <div v-for="item in tableHeadList" :key="item" class="setting-checkbox-option">
+                                    <i class="el-icon-menu setting-checkbox-icon" style=""></i>
+                                    <el-checkbox :label="item">{{ item }}</el-checkbox>
+                                </div>
+                            </div>
+                        </el-checkbox-group>
+                    </div>
+                </el-popover>
             </el-tooltip>
         </div>
     </div>
@@ -73,7 +72,6 @@ export default {
             type: String,
             default: 'body'
         }
-        
     },
 
     data() {
@@ -88,25 +86,29 @@ export default {
     },
 
     mounted() {
-        this.$nextTick(() => {
-            const queryDom = (this.queryDom === 'body' || this.queryDom.startsWith('.')) ? this.queryDom : `.${this.queryDom}`
-            const oHeader = document.querySelector(`${queryDom} .el-table__header`)
-            const oTableTH = oHeader.getElementsByClassName('is-leaf')
-            const transformDomArr = [...oTableTH]
-            transformDomArr.forEach(dom => {
-                const thChildren = dom.children[0]
-                const labelChildren = thChildren.children[0]
-                const childrenText = thChildren && thChildren.innerHTML
-                if (!labelChildren &&　childrenText) {
-                    this.tableHeadList.push(childrenText)
-                    this.thList.push(dom)
-                }
-            })
-            this.checkList = this.tableHeadList
-        })
+        this.getCheckList()
     },
 
     methods: {
+        getCheckList() {
+            this.$nextTick(() => {
+                const queryDom = (this.queryDom === 'body' || this.queryDom.startsWith('.')) ? this.queryDom : `.${this.queryDom}`
+                const oHeader = document.querySelector(`${queryDom} .el-table__header`)
+                const oTableTH = oHeader.getElementsByClassName('is-leaf')
+                const transformDomArr = [...oTableTH]
+                transformDomArr.forEach(dom => {
+                    const thChildren = dom.children[0]
+                    const labelChildren = thChildren.children[0]
+                    const childrenText = thChildren && thChildren.innerHTML
+                    if (!labelChildren && childrenText) {
+                        this.tableHeadList.push(childrenText)
+                        this.thList.push(dom)
+                    }
+                })
+                this.checkList = this.tableHeadList
+            })
+        },
+
         refreshData() {
             this.$emit('refresh') // 刷新表格数据
         },
@@ -180,11 +182,13 @@ export default {
     padding: 4px 0 4px 3px;
     .setting-checkbox-option {
         padding: 5px 16px 5px 4px;
+        display: flex;
+        align-items: center;
     }
     .setting-checkbox-icon {
         font-size: 13px;
         margin-right: 6px;
-        color: rgb(223 222 222);
+        color: rgba(223, 222, 222, 1);
     }
 }
 </style>

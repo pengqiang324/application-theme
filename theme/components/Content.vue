@@ -3,7 +3,7 @@
     <el-col 
     :span="24"
     :style="{'min-height': startMinHeight ? minHeight : ''}" 
-    :class="['content-box', {'content-box-min-height': startMinHeight}]">
+    :class="['content-box', {'content-box-min-height': startMinHeight, 'content-box-no-padding': noPadding}]">
         <slot name="tabs"></slot>
         <slot name="tool"></slot>
         <slot name="selection"></slot>
@@ -38,6 +38,10 @@ export default {
         loading: {
             type: Boolean,
             default: false
+        },
+        noPadding: {
+            type: Boolean,
+            default: false
         }
     }
 }
@@ -47,6 +51,9 @@ export default {
 .content-box {
     padding: 24px;
     background: #fff;
+    .content-box-no-padding {
+        padding: 0;
+    }
 }
 .content-table-box {
     position: relative;
