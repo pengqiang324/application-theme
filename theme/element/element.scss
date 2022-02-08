@@ -61,6 +61,7 @@ $padding-24: 24px;
 }
 .el-form-item__label {
     padding-right: $margin-padding-distance;
+    color: rgba(0,0,0,.85);
 }
 .el-form--label-top {
     .el-form-item__label {
@@ -99,6 +100,10 @@ $padding-24: 24px;
 
 .el-table th.el-table__cell>.cell {
     padding: 0 $padding-base;
+}
+
+.el-table__empty-block {
+    width: 100% !important;
 }
 
 /* Table */

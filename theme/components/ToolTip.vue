@@ -1,6 +1,6 @@
 <template functional>
 <el-tooltip :content="props.content" :placement="props.placement">
-  <p class="tooltip-text">{{ props.content.length > 10 ? `${props.content.slice(0, 10)}...` : props.content }}</p>
+  <p class="tooltip-text">{{ props.content && props.content.length > 10 ? `${props.content.slice(0, 10)}...` : props.content }}</p>
 </el-tooltip>
 </template>
 
