@@ -86,7 +86,9 @@ export default {
     },
 
     mounted() {
-        this.getCheckList()
+        if (this.showSetting) {
+            this.getCheckList()
+        }
     },
 
     methods: {
