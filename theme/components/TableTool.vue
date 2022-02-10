@@ -125,6 +125,7 @@ export default {
             const changeList = val ? [] : this.tableHeadList
             this.checkList = val ? this.tableHeadList : []
             this.isIndeterminate = false
+            this.updateEmptyWidth(!val)
             this.$emit('checkChange', changeList)
         },
 
@@ -139,6 +140,7 @@ export default {
                     this.diffLabels.push(item)
                 }
             })
+            this.updateEmptyWidth(!this.checkList.length)
             this.$emit('checkChange', this.diffLabels)
         },
 
@@ -147,6 +149,16 @@ export default {
             this.checkAll = true
             this.isIndeterminate = false
             this.$emit('checkChange', [])
+        },
+
+        updateEmptyWidth(isSetMinWidth) {
+            const oEmpty = document.querySelector('.el-table__empty-block')
+            if (!oEmpty) return
+            if (isSetMinWidth) {
+                oEmpty.style.minWidth = '100%'
+            } else {
+                oEmpty.style.minWidth = ''
+            }
         }
     }
 }
