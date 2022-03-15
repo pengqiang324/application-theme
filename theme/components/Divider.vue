@@ -98,8 +98,9 @@ export default {
             )
         }
         let renderDOM = null
+        const Number = Props.number || 2
         // 数量超过 2 的操作选项
-        if (Children.length <= 3) {
+        if (Children.length <= Number) {
             renderDOM = Children.map((dom, index) => {
                 return createDefaultVDOM(dom, index)
             })

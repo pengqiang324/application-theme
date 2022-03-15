@@ -1,5 +1,5 @@
 
-const version = "0.5.7"
+const version = "0.5.11"
 const modulesFiles = require.context('../theme/components', true, /\.vue$/)
 
 // 定义 install 方法。
