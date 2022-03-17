@@ -24,6 +24,11 @@ export default {
         index: {
             type: Number,
             default: 0
+        },
+
+        refresh: {
+            type: Boolean | Number,
+            default: false
         }
     },
 
@@ -34,6 +39,18 @@ export default {
             isOpen: false,
             needOpenStatus: false,
             key: Math.random() * 1000
+        }
+    },
+
+    watch: {
+        // 手动刷新
+        refresh(val) {
+            if (val) {
+                this.needOpenStatus = true
+                this.setDisplay(this.inputList, 'block')
+                this.computeCol()
+                this.handleOpen()
+            }
         }
     },
 
